@@ -1,0 +1,20 @@
+FROM resin/%%RESIN_MACHINE_NAME%%-debian
+
+MAINTAINER Alan Hortz <alan@handson.io>
+
+WORKDIR /usr/src/app
+
+# Enable systemd
+ENV INITSYSTEM on
+
+# copy Storage mount definition file for systemd
+COPY mounts/mnt-media.mount /lib/systemd/system
+
+# copy current directory into /app
+COPY . ./
+
+# mount storage on application start
+RUN systemctl enable mnt-media.mount
+
+# run python script when container lands on device
+CMD ["bash", "start.sh"]

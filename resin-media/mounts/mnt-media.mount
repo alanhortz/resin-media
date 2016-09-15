@@ -1,0 +1,11 @@
+[Unit]
+Description=uSD Storage mountpoint
+
+[Mount]
+What=/dev/disk/by-label/resin-media
+Where=/mnt/media
+Type=vfat
+Options=rw
+
+[Install]
+WantedBy=multi-user.target
